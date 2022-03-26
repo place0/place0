@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://ifh.cc/g/fwVoJs.webp" width="1000" height="400">
+  <img src="https://ifh.cc/g/fwVoJs.webp" width="500" height="200">
 
   #
   ![Soyoung's GitHub stats](https://github-readme-stats.vercel.app/api?username=place0&show_icons=true&theme=noctis_minimus)
