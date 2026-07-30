@@ -1,10 +1,10 @@
-#### 🐱 Goyoung.fit(data) — Fine-tuning My Wngineering space 💻
+### 🐱 Goyoung.fit(data) — Fine-tuning My Wngineering space 💻
 
 
 <br>
 
-[![Blog](https://img.shields.io/badge/Blog-161B22?style=flat-square&logo=tistory&logoColor=white)](https://place0.tistory.com/)
-[![Email](https://img.shields.io/badge/Email-161B22?style=flat-square&logo=gmail&logoColor=EA4335)](mailto:thdud030101@gmail.com)
+[![Blog](https://img.shields.io/badge/Blog-FFFFFF?style=flat-square&logo=tistory&logoColor=000000)](https://place0.tistory.com/)
+[![Email](https://img.shields.io/badge/Email-FFFFFF?style=flat-square&logo=gmail&logoColor=EA4335)](mailto:thdud030101@gmail.com)
 
 <br>
 
@@ -14,11 +14,11 @@
 
 <br>
 
-![Python](https://img.shields.io/badge/Python-161B22?style=flat-square&logo=python&logoColor=4B8BBE)
-![PyTorch](https://img.shields.io/badge/PyTorch-161B22?style=flat-square&logo=pytorch&logoColor=EE4C2C)
-![Hugging Face](https://img.shields.io/badge/Hugging%20Face-161B22?style=flat-square&logo=huggingface&logoColor=FFD21E)
-![Docker](https://img.shields.io/badge/Docker-161B22?style=flat-square&logo=docker&logoColor=2496ED)
-![Linux](https://img.shields.io/badge/Linux-161B22?style=flat-square&logo=linux&logoColor=FCC624)
+![Python](https://img.shields.io/badge/Python-FFFFFF?style=flat-square&logo=python&logoColor=3776AB)
+![PyTorch](https://img.shields.io/badge/PyTorch-FFFFFF?style=flat-square&logo=pytorch&logoColor=EE4C2C)
+![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFFFFF?style=flat-square&logo=huggingface&logoColor=FFD21E)
+![Docker](https://img.shields.io/badge/Docker-FFFFFF?style=flat-square&logo=docker&logoColor=2496ED)
+![Linux](https://img.shields.io/badge/Linux-FFFFFF?style=flat-square&logo=linux&logoColor=000000)
 
 
 <br>
