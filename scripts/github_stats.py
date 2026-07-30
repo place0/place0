@@ -147,7 +147,7 @@ def sparkline(values: list[int]) -> str:
 
 def bar(pct: float) -> str:
     filled = round(BAR_WIDTH * pct / 100)
-    return "█" * filled + "░" * (BAR_WIDTH - filled)
+    return "▰" * filled + "▱" * (BAR_WIDTH - filled)
 
 
 def build_block() -> str:

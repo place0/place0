@@ -14,11 +14,11 @@
 
 <br>
 
-![Python](https://img.shields.io/badge/Python-FFFFFF?style=flat-square&logo=python&logoColor=3776AB)
-![PyTorch](https://img.shields.io/badge/PyTorch-FFFFFF?style=flat-square&logo=pytorch&logoColor=EE4C2C)
-![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFFFFF?style=flat-square&logo=huggingface&logoColor=FFD21E)
-![Docker](https://img.shields.io/badge/Docker-FFFFFF?style=flat-square&logo=docker&logoColor=2496ED)
-![Linux](https://img.shields.io/badge/Linux-FFFFFF?style=flat-square&logo=linux&logoColor=000000)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)
+![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21E?style=flat-square&logo=huggingface&logoColor=black)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
 
 
 <br>
