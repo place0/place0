@@ -69,12 +69,12 @@
 <!-- STATS:START -->
 <div align="center">
 <pre>
-last 30 days  ▁▁▁▁▁▁▁▁▁▁▁▁▅█▁▁▁▁▁▁▁▁▁▁▁▁▁█▅▁</pre>
+last 30 days  ▁▁▁▁▁▁▁▁▁▁▁▁▃▅▁▁▁▁▁▁▁▁▁▁▁▁▁▅▃█</pre>
 </div>
 
 <div align="center">
 <pre>
-Python      ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰   97.3%
+Python      ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰   97.2%
 JavaScript  ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.5%
 Shell       ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.2%</pre>
 </div>
