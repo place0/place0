@@ -1,19 +1,25 @@
-## place0
-
-- **관심사**: Visual Localization, Spatial AI, 추론 최적화
-- **요즘 하는 것**: GPS 음영 환경에서의 시각 기반 측위 모델 경량화·배포
+#### 🐱 Goyoung.fit(data) — Fine-tuning My Wngineering space 💻
 
 
 <br>
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat-square&logo=tensorflow&logoColor=white)
-![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21E?style=flat-square&logo=huggingface&logoColor=black)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
-[![Blog](https://img.shields.io/badge/Blog-000000?style=flat-square&logo=tistory&logoColor=white)](BLOG_URL)
-[![Email](https://img.shields.io/badge/Email-D14836?style=flat-square&logo=gmail&logoColor=white)](mailto:YOUR_EMAIL)
+[![Blog](https://img.shields.io/badge/Blog-161B22?style=flat-square&logo=tistory&logoColor=white)](https://place0.tistory.com/)
+[![Email](https://img.shields.io/badge/Email-161B22?style=flat-square&logo=gmail&logoColor=EA4335)](mailto:thdud030101@gmail.com)
+
+<br>
+
+- **Visual Localization** — Image-based indoor positioning in GPS-denied environments
+- **Inference Optimization** — Model compression and deployment for on-device inference
+- **Reinforcement Learning** — RL-based music generation
+
+<br>
+
+![Python](https://img.shields.io/badge/Python-161B22?style=flat-square&logo=python&logoColor=4B8BBE)
+![PyTorch](https://img.shields.io/badge/PyTorch-161B22?style=flat-square&logo=pytorch&logoColor=EE4C2C)
+![Hugging Face](https://img.shields.io/badge/Hugging%20Face-161B22?style=flat-square&logo=huggingface&logoColor=FFD21E)
+![Docker](https://img.shields.io/badge/Docker-161B22?style=flat-square&logo=docker&logoColor=2496ED)
+![Linux](https://img.shields.io/badge/Linux-161B22?style=flat-square&logo=linux&logoColor=FCC624)
+
 
 <br>
 

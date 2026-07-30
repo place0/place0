@@ -6,7 +6,7 @@ on:
     - cron: "0 15 * * *"
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - "scripts/**"
       - ".github/workflows/live-readme.yml"

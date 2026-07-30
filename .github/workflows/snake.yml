@@ -6,7 +6,7 @@ on:
     - cron: "0 */6 * * *"
   workflow_dispatch: # Actions 탭에서 수동 실행
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - ".github/workflows/snake.yml"
 
