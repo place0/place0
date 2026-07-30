@@ -74,12 +74,12 @@ last 30 days  ▁▁▁▁▁▁▁▁▁▁▁▁▃▅▁▁▁▁▁▁▁▁
 
 <div align="center">
 <pre>
-Python      ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰   97.2%
+Python      ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰   97.3%
 JavaScript  ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.5%
 Shell       ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.2%</pre>
 </div>
 
-<p align="center"><sub>updated 2026-07-30 19:57 KST</sub></p>
+<p align="center"><sub>updated 2026-07-31 01:19 KST</sub></p>
 <!-- STATS:END -->
 
 <h3 align="center">⏳ Coding time 💻</h3>
