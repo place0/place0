@@ -67,15 +67,19 @@
 <h3 align="center">🧩 Language & Activity Metrics 🎯</h3>
 
 <!-- STATS:START -->
-```
-last 30 days  ▁▁▁▁▁▁▁▁▁▁▁▁▅█▁▁▁▁▁▁▁▁▁▁▁▁▁█▅▁
-```
-```
+<div align="center">
+<pre>
+last 30 days  ▁▁▁▁▁▁▁▁▁▁▁▁▅█▁▁▁▁▁▁▁▁▁▁▁▁▁█▅▁</pre>
+</div>
+
+<div align="center">
+<pre>
 Python      ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▱   97.2%
 JavaScript  ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.5%
-Shell       ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.2%
-```
-<sub>updated 2026-07-30 17:38 KST</sub>
+Shell       ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.2%</pre>
+</div>
+
+<p align="center"><sub>updated 2026-07-30 19:51 KST</sub></p>
 <!-- STATS:END -->
 
 <h3 align="center">⏳ Coding time 💻</h3>
