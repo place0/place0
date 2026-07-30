@@ -38,11 +38,21 @@
 ### Activity
 
 <!-- STATS:START -->
+```
+last 30 days  ▁▁▁▁▁▁▁▁▁▁▁▁▅█▁▁▁▁▁▁▁▁▁▁▁▁▁█▅▁
+```
+```
+Python      █████████████████░   97.2%
+JavaScript  ░░░░░░░░░░░░░░░░░░    1.5%
+Shell       ░░░░░░░░░░░░░░░░░░    1.2%
+```
+<sub>updated 2026-07-30 16:14 KST</sub>
 <!-- STATS:END -->
 
 ### Coding time
 
 <!-- CODING_TIME:START -->
+_WakaTime 데이터가 아직 없습니다._
 <!-- CODING_TIME:END -->
 
 <sub>이 페이지의 수치는 GitHub Actions 가 매일 자동으로 갱신합니다.</sub>
