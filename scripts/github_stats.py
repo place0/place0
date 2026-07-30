@@ -43,16 +43,25 @@ SPARK = "▁▂▃▄▅▆▇█"
 SKIP_LANGS = {"HTML", "CSS", "Jupyter Notebook", "Makefile", "Dockerfile"}
 
 
-def _request(url: str, data: bytes | None = None) -> dict:
+def _request(url: str, data: bytes | None = None, auth: bool = True) -> dict:
     req = urllib.request.Request(url, data=data)
     req.add_header("Accept", "application/vnd.github+json")
     req.add_header("User-Agent", "readme-stats")
-    if TOKEN:
+    if auth and TOKEN:
         req.add_header("Authorization", f"Bearer {TOKEN}")
     if data:
         req.add_header("Content-Type", "application/json")
     with urllib.request.urlopen(req, timeout=20) as resp:
         return json.load(resp)
+
+
+def _get_public(url: str) -> dict:
+    """공개 데이터 조회. 토큰이 문제면 비인증으로 한 번 더 시도한다."""
+    try:
+        return _request(url)
+    except urllib.error.HTTPError as exc:
+        print(f"[warn] 인증 요청 실패({exc.code}) -> 비인증으로 재시도: {url}")
+        return _request(url, auth=False)
 
 
 def fetch_contributions() -> dict | None:
@@ -108,9 +117,10 @@ def fetch_contributions() -> dict | None:
 def fetch_languages() -> tuple[list[tuple[str, float]], int]:
     """본인 소유 공개 리포의 실제 언어 바이트를 합산한다."""
     if not USER:
+        print("[warn] GH_USERNAME 없음 -> 언어 비율 생략")
         return [], 0
     try:
-        repos = _request(
+        repos = _get_public(
             f"https://api.github.com/users/{USER}/repos"
             "?per_page=100&type=owner&sort=updated"
         )
@@ -122,7 +132,7 @@ def fetch_languages() -> tuple[list[tuple[str, float]], int]:
     totals: dict[str, int] = {}
     for repo in repos[:40]:  # rate limit 보호
         try:
-            langs = _request(repo["languages_url"])
+            langs = _get_public(repo["languages_url"])
         except (urllib.error.URLError, TimeoutError, OSError):
             continue
         for name, size in langs.items():
@@ -175,8 +185,9 @@ def build_block() -> str:
         )
 
     if not parts:
+        print("[error] 컨트리뷰션/언어 모두 실패 — 위의 warn 로그를 확인하세요")
         return ('<p align="center"><em>통계를 가져오지 못했습니다. '
-                'GH_TOKEN 설정을 확인하세요.</em></p>')
+                'Actions 로그를 확인하세요.</em></p>')
 
     stamp = datetime.now(KST).strftime("%Y-%m-%d %H:%M KST")
     parts.append(f'<p align="center"><sub>updated {stamp}</sub></p>')
