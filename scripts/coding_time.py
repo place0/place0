@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 """
-GPU Utilization Card (WakaTime -> README)
------------------------------------------
-WakaTime 최근 7일 통계를 끌어와 'AI 워크스테이션 상태창'으로 번역해서
-README.md 의 마커 사이를 갈아끼운다.
+GitHub Stats -> README
+----------------------
+GitHub API 에서 실제 활동 데이터를 가져와 README 의 마커 사이를 갈아끼운다.
+지어낸 값은 하나도 없다. 가져오지 못한 항목은 표시하지 않는다.
 
-데이터 소스 (둘 중 하나만 있으면 됨):
-  1) WAKATIME_API_KEY  : 비공개. Basic auth 로 /users/current/stats/last_7_days 호출
-  2) WAKATIME_SHARE_URL: 공개 share embed JSON URL (키 없이 사용 가능)
-  둘 다 없으면 데모 데이터로 렌더링한다 (로컬 미리보기용).
+수집 항목
+  - 최근 1년 컨트리뷰션 수 / 활동한 날 수 / 현재 연속 일수  (GraphQL)
+  - 최근 30일 활동 스파크라인                                (GraphQL)
+  - 공개 리포 수, 언어별 실제 코드 비율                      (REST)
 
-주간 목표 시간은 WEEKLY_TARGET_HOURS 로 조절.
+환경변수
+  GH_USERNAME : 대상 계정 (기본값: 워크플로에서 주입)
+  GH_TOKEN    : 토큰. Actions 의 GITHUB_TOKEN 으로도 대부분 동작하지만
+                컨트리뷰션 조회가 비면 read:user 권한의 classic PAT 를 쓸 것.
+표준 라이브러리만 사용한다 (설치할 의존성 없음).
 """
 
 from __future__ import annotations
 
-import base64
 import json
 import os
 import re
@@ -26,129 +29,178 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 README = ROOT / "README.md"
-START = "<!-- CODING_TIME:START -->"
-END = "<!-- CODING_TIME:END -->"
+START = "<!-- STATS:START -->"
+END = "<!-- STATS:END -->"
 
 KST = timezone(timedelta(hours=9))
-WEEKLY_TARGET_HOURS = float(os.getenv("WEEKLY_TARGET_HOURS", "40"))
+USER = os.getenv("GH_USERNAME", "")
+TOKEN = os.getenv("GH_TOKEN", "")
 BAR_WIDTH = 18
-TOP_N = 4
+TOP_LANGS = 5
+SPARK = "▁▂▃▄▅▆▇█"
 
-DEMO = {
-    "total_seconds": 152280,
-    "languages": [
-        {"name": "Python", "percent": 61.4, "text": "25 hrs 58 mins"},
-        {"name": "CUDA", "percent": 14.2, "text": "6 hrs 1 min"},
-        {"name": "YAML", "percent": 11.9, "text": "5 hrs 2 mins"},
-        {"name": "Markdown", "percent": 7.3, "text": "3 hrs 5 mins"},
-        {"name": "Bash", "percent": 5.2, "text": "2 hrs 12 mins"},
-    ],
-    "best_day": {"date": "2026-07-28", "text": "9 hrs 12 mins"},
-}
+# 세지 않을 언어 (설정 파일류가 비율을 왜곡한다)
+SKIP_LANGS = {"HTML", "CSS", "Jupyter Notebook", "Makefile", "Dockerfile"}
 
 
-def _get_json(url: str, headers: dict | None = None) -> dict:
-    req = urllib.request.Request(url, headers=headers or {})
-    req.add_header("User-Agent", "readme-live-status")
+def _request(url: str, data: bytes | None = None) -> dict:
+    req = urllib.request.Request(url, data=data)
+    req.add_header("Accept", "application/vnd.github+json")
+    req.add_header("User-Agent", "readme-stats")
+    if TOKEN:
+        req.add_header("Authorization", f"Bearer {TOKEN}")
+    if data:
+        req.add_header("Content-Type", "application/json")
     with urllib.request.urlopen(req, timeout=20) as resp:
         return json.load(resp)
 
 
-def fetch_stats() -> tuple[dict, str]:
-    """(stats, source) 반환. 실패 시 데모 데이터."""
-    key = os.getenv("WAKATIME_API_KEY")
-    share = os.getenv("WAKATIME_SHARE_URL")
+def fetch_contributions() -> dict | None:
+    """최근 1년 컨트리뷰션 캘린더. 실패하면 None (해당 섹션을 아예 생략한다)."""
+    if not (USER and TOKEN):
+        print("[warn] GH_USERNAME / GH_TOKEN 없음 -> 컨트리뷰션 생략")
+        return None
+    query = """
+    query($login:String!) {
+      user(login:$login) {
+        contributionsCollection {
+          contributionCalendar {
+            totalContributions
+            weeks { contributionDays { date contributionCount } }
+          }
+        }
+      }
+    }"""
+    body = json.dumps({"query": query, "variables": {"login": USER}}).encode()
     try:
-        if key:
-            token = base64.b64encode(key.encode()).decode()
-            data = _get_json(
-                "https://wakatime.com/api/v1/users/current/stats/last_7_days",
-                {"Authorization": f"Basic {token}"},
-            )
-            return data.get("data", {}), "wakatime-api"
-        if share:
-            data = _get_json(share)
-            return {"languages": data.get("data", [])}, "wakatime-share"
-    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError) as exc:
-        print(f"[warn] WakaTime 호출 실패 -> 데모 데이터 사용: {exc}")
-        return DEMO, "demo (fetch failed)"
-    print("[warn] WakaTime 자격정보 없음 -> 데모 데이터 사용")
-    return DEMO, "demo (no credentials)"
+        res = _request("https://api.github.com/graphql", body)
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        print(f"[warn] GraphQL 실패 -> 컨트리뷰션 생략: {exc}")
+        return None
+
+    if res.get("errors") or not res.get("data", {}).get("user"):
+        print(f"[warn] GraphQL 응답 비어있음 -> 컨트리뷰션 생략: {res.get('errors')}")
+        return None
+
+    cal = res["data"]["user"]["contributionsCollection"]["contributionCalendar"]
+    days = [d for w in cal["weeks"] for d in w["contributionDays"]]
+    days.sort(key=lambda d: d["date"])
+
+    today = datetime.now(KST).date().isoformat()
+    streak = 0
+    for day in reversed(days):
+        if day["date"] > today:
+            continue
+        if day["contributionCount"] > 0:
+            streak += 1
+        elif day["date"] != today:  # 오늘은 아직 안 했을 수 있으니 봐준다
+            break
+
+    return {
+        "total": cal["totalContributions"],
+        "active_days": sum(1 for d in days if d["contributionCount"] > 0),
+        "total_days": len(days),
+        "streak": streak,
+        "recent": [d["contributionCount"] for d in days if d["date"] <= today][-30:],
+    }
 
 
-def bar(pct: float, width: int = BAR_WIDTH) -> str:
-    pct = max(0.0, min(100.0, pct))
-    filled = round(width * pct / 100)
-    return "█" * filled + "░" * (width - filled)
-
-
-def parse_hours(stats: dict) -> float:
-    if stats.get("total_seconds"):
-        return stats["total_seconds"] / 3600
-    # share embed 에는 총합이 없어서 언어별 시간을 합산
-    total = 0.0
-    for lang in stats.get("languages", []):
-        total += lang.get("total_seconds", 0) / 3600
-    return total
-
-
-def humanize(hours: float) -> str:
-    h = int(hours)
-    m = int(round((hours - h) * 60))
-    return f"{h}h {m:02d}m"
-
-
-def build_card(stats: dict, source: str) -> str:
-    langs = stats.get("languages", [])[:TOP_N]
-    total_h = parse_hours(stats)
-    now = datetime.now(KST).strftime("%Y-%m-%d %H:%M KST")
-
-    if not langs:
-        return "_WakaTime 데이터가 아직 없습니다._"
-
-    width = max(len(l.get("name", "?")) for l in langs)
-    rows = []
-    for lang in langs:
-        pct = float(lang.get("percent", 0))
-        text = lang.get("text") or humanize(lang.get("total_seconds", 0) / 3600)
-        rows.append(f"{lang.get('name', '?'):<{width}}  {bar(pct)}  {pct:5.1f}%  {text}")
-
-    rows.append("-" * max(len(r) for r in rows))
-    rows.append(f"{'Total':<{width}}  {humanize(total_h)}  (last 7 days)")
-
-    body = "\n".join(["```", *rows, "```"])
-    if source.startswith("demo"):
-        body += "\n<sub>demo data — WAKATIME_API_KEY 미설정</sub>"
-    else:
-        body += f"\n<sub>updated {now} · via WakaTime</sub>"
-    return body
-
-
-def inject(card: str) -> None:
-    if not README.exists():
-        README.write_text(
-            f"# README\n\n{START}\n{END}\n", encoding="utf-8"
+def fetch_languages() -> tuple[list[tuple[str, float]], int]:
+    """본인 소유 공개 리포의 실제 언어 바이트를 합산한다."""
+    if not USER:
+        return [], 0
+    try:
+        repos = _request(
+            f"https://api.github.com/users/{USER}/repos"
+            "?per_page=100&type=owner&sort=updated"
         )
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        print(f"[warn] 리포 목록 실패: {exc}")
+        return [], 0
+
+    repos = [r for r in repos if not r.get("fork") and not r.get("archived")]
+    totals: dict[str, int] = {}
+    for repo in repos[:40]:  # rate limit 보호
+        try:
+            langs = _request(repo["languages_url"])
+        except (urllib.error.URLError, TimeoutError, OSError):
+            continue
+        for name, size in langs.items():
+            if name not in SKIP_LANGS:
+                totals[name] = totals.get(name, 0) + size
+
+    grand = sum(totals.values())
+    if not grand:
+        return [], len(repos)
+    ranked = sorted(totals.items(), key=lambda kv: -kv[1])[:TOP_LANGS]
+    return [(n, s / grand * 100) for n, s in ranked], len(repos)
+
+
+def sparkline(values: list[int]) -> str:
+    if not values:
+        return ""
+    peak = max(values)
+    if peak == 0:
+        return SPARK[0] * len(values)
+    return "".join(SPARK[min(7, round(v / peak * 7))] for v in values)
+
+
+def center_block(lines: list[str]) -> str:
+    """모든 줄을 같은 길이로 패딩한 뒤 가운데 정렬 pre 로 감싼다.
+    길이를 맞춰야 줄마다 따로 중앙 정렬돼도 열이 어긋나지 않는다."""
+    width = max(len(line) for line in lines)
+    padded = [line.ljust(width) for line in lines]
+    return '<div align="center">\n<pre>\n' + "\n".join(padded) + "</pre>\n</div>"
+
+
+def bar(pct: float) -> str:
+    filled = round(BAR_WIDTH * pct / 100)
+    return "▰" * filled + "▱" * (BAR_WIDTH - filled)
+
+
+def build_block() -> str:
+    contrib = fetch_contributions()
+    langs, repo_count = fetch_languages()
+    parts: list[str] = []
+
+    if contrib:
+        parts.append(center_block([f"last 30 days  {sparkline(contrib['recent'])}"]))
+
+    if langs:
+        width = max(len(n) for n, _ in langs)
+        parts.append(
+            center_block(
+                [f"{name:<{width}}  {bar(pct)}  {pct:5.1f}%" for name, pct in langs]
+            )
+        )
+
+    if not parts:
+        return ('<p align="center"><em>통계를 가져오지 못했습니다. '
+                'GH_TOKEN 설정을 확인하세요.</em></p>')
+
+    stamp = datetime.now(KST).strftime("%Y-%m-%d %H:%M KST")
+    parts.append(f'<p align="center"><sub>updated {stamp}</sub></p>')
+    return "\n\n".join(parts)
+
+
+def inject(block: str) -> None:
+    if not README.exists():
+        raise SystemExit("README.md 가 없습니다.")
     text = README.read_text(encoding="utf-8")
     if START not in text or END not in text:
-        raise SystemExit(
-            f"README.md 에 마커가 없습니다. 다음 두 줄을 넣어주세요:\n{START}\n{END}"
-        )
-    new = re.sub(
-        rf"{re.escape(START)}.*?{re.escape(END)}",
-        f"{START}\n{card}\n{END}",
-        text,
-        flags=re.DOTALL,
+        raise SystemExit(f"README.md 에 마커가 없습니다:\n{START}\n{END}")
+    README.write_text(
+        re.sub(
+            rf"{re.escape(START)}.*?{re.escape(END)}",
+            f"{START}\n{block}\n{END}",
+            text,
+            flags=re.DOTALL,
+        ),
+        encoding="utf-8",
     )
-    README.write_text(new, encoding="utf-8")
-
-
-def main() -> None:
-    stats, source = fetch_stats()
-    card = build_card(stats, source)
-    inject(card)
-    print(card)
 
 
 if __name__ == "__main__":
-    main()
+    out = build_block()
+    inject(out)
+    print(out)
