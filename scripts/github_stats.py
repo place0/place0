@@ -145,6 +145,14 @@ def sparkline(values: list[int]) -> str:
     return "".join(SPARK[min(7, round(v / peak * 7))] for v in values)
 
 
+def center_block(lines: list[str]) -> str:
+    """모든 줄을 같은 길이로 패딩한 뒤 가운데 정렬 pre 로 감싼다.
+    길이를 맞춰야 줄마다 따로 중앙 정렬돼도 열이 어긋나지 않는다."""
+    width = max(len(line) for line in lines)
+    padded = [line.ljust(width) for line in lines]
+    return '<div align="center">\n<pre>\n' + "\n".join(padded) + "</pre>\n</div>"
+
+
 def bar(pct: float) -> str:
     filled = round(BAR_WIDTH * pct / 100)
     return "▰" * filled + "▱" * (BAR_WIDTH - filled)
@@ -156,23 +164,23 @@ def build_block() -> str:
     parts: list[str] = []
 
     if contrib:
-        parts.append("```")
-        parts.append(f"last 30 days  {sparkline(contrib['recent'])}")
-        parts.append("```")
+        parts.append(center_block([f"last 30 days  {sparkline(contrib['recent'])}"]))
 
     if langs:
         width = max(len(n) for n, _ in langs)
-        parts.append("```")
-        for name, pct in langs:
-            parts.append(f"{name:<{width}}  {bar(pct)}  {pct:5.1f}%")
-        parts.append("```")
+        parts.append(
+            center_block(
+                [f"{name:<{width}}  {bar(pct)}  {pct:5.1f}%" for name, pct in langs]
+            )
+        )
 
     if not parts:
-        return "_통계를 가져오지 못했습니다. GH_TOKEN 설정을 확인하세요._"
+        return ('<p align="center"><em>통계를 가져오지 못했습니다. '
+                'GH_TOKEN 설정을 확인하세요.</em></p>')
 
     stamp = datetime.now(KST).strftime("%Y-%m-%d %H:%M KST")
-    parts.append(f"<sub>updated {stamp}</sub>")
-    return "\n".join(parts)
+    parts.append(f'<p align="center"><sub>updated {stamp}</sub></p>')
+    return "\n\n".join(parts)
 
 
 def inject(block: str) -> None:
