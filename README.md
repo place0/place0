@@ -67,13 +67,25 @@
 <h3 align="center">🧩 Language & Activity Metrics 🎯</h3>
 
 <!-- STATS:START -->
-<p align="center"><em>통계를 가져오지 못했습니다. GH_TOKEN 설정을 확인하세요.</em></p>
+<div align="center">
+<pre>
+last 30 days  ▁▁▁▁▁▁▁▁▁▁▁▁▅█▁▁▁▁▁▁▁▁▁▁▁▁▁█▅▁</pre>
+</div>
+
+<div align="center">
+<pre>
+Python      ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰   97.3%
+JavaScript  ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.5%
+Shell       ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.2%</pre>
+</div>
+
+<p align="center"><sub>updated 2026-07-30 19:57 KST</sub></p>
 <!-- STATS:END -->
 
 <h3 align="center">⏳ Coding time 💻</h3>
 
 <!-- CODING_TIME:START -->
-_WakaTime 데이터가 아직 없습니다._
+<p align="center"><em>WakaTime 데이터가 아직 없습니다.</em></p>
 <!-- CODING_TIME:END -->
 
 <sub>이 페이지의 수치는 GitHub Actions 가 매일 자동으로 갱신합니다.</sub>
