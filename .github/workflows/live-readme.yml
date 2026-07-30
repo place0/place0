@@ -1,0 +1,58 @@
+name: live-readme
+
+on:
+  schedule:
+    # 15:00 UTC = 자정 00:00 KST
+    - cron: "0 15 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/live-readme.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live-readme
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 설치할 의존성 없음 — 두 스크립트 모두 표준 라이브러리만 사용한다
+
+      - name: Update GitHub activity stats
+        env:
+          GH_USERNAME: ${{ github.repository_owner }}
+          # 컨트리뷰션 수치가 비어 나오면 read:user 권한의 classic PAT 를
+          # GH_PAT 시크릿으로 등록한 뒤 아래 줄을 secrets.GH_PAT 로 바꾼다
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+        run: python scripts/github_stats.py
+
+      - name: Update coding time
+        env:
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+        run: python scripts/coding_time.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --staged --quiet; then
+            echo "변경 없음 — 커밋 스킵"
+          else
+            git commit -m "chore: update readme stats"
+            git push
+          fi
