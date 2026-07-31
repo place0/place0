@@ -69,7 +69,7 @@
 <!-- STATS:START -->
 <div align="center">
 <pre>
-last 30 days  ▁▁▁▁▁▁▁▁▁▁▁▁▃▅▁▁▁▁▁▁▁▁▁▁▁▁▁▅▃█</pre>
+last 30 days  ▁▁▁▁▁▁▁▁▁▁▁▃▅▁▁▁▁▁▁▁▁▁▁▁▁▁▅▃█▁</pre>
 </div>
 
 <div align="center">
@@ -79,7 +79,7 @@ JavaScript  ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.5%
 Shell       ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.2%</pre>
 </div>
 
-<p align="center"><sub>updated 2026-07-31 01:19 KST</sub></p>
+<p align="center"><sub>updated 2026-08-01 01:28 KST</sub></p>
 <!-- STATS:END -->
 
 <h3 align="center">⏳ Coding time 💻</h3>
