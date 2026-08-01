@@ -69,7 +69,7 @@
 <!-- STATS:START -->
 <div align="center">
 <pre>
-last 30 days  ▁▁▁▁▁▁▁▁▁▁▁▃▅▁▁▁▁▁▁▁▁▁▁▁▁▁▅▃█▁</pre>
+last 30 days  ▁▁▁▁▁▁▁▁▁▁▃▅▁▁▁▁▁▁▁▁▁▁▁▁▁▅▃█▁▁</pre>
 </div>
 
 <div align="center">
@@ -79,13 +79,23 @@ JavaScript  ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.5%
 Shell       ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.2%</pre>
 </div>
 
-<p align="center"><sub>updated 2026-08-01 01:28 KST</sub></p>
+<p align="center"><sub>updated 2026-08-02 00:49 KST</sub></p>
 <!-- STATS:END -->
 
 <h3 align="center">⏳ Coding time 💻</h3>
 
 <!-- CODING_TIME:START -->
-<p align="center"><em>WakaTime 데이터가 아직 없습니다.</em></p>
+<div align="center">
+<pre>
+Java  ▰▰▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱   72.0%  3 hrs 37 mins
+HTML  ▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱   11.9%  35 mins      
+SQL   ▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    4.4%  13 mins      
+YAML  ▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    3.4%  10 mins      
+-----------------------------------------------
+Total  4h 54m  (last 7 days)                   </pre>
+</div>
+
+<p align="center"><sub>updated 2026-08-02 00:49 KST · via WakaTime</sub></p>
 <!-- CODING_TIME:END -->
 
 <sub>이 페이지의 수치는 GitHub Actions 가 매일 자동으로 갱신합니다.</sub>
