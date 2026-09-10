@@ -69,7 +69,7 @@
 <!-- STATS:START -->
 <div align="center">
 <pre>
-last 30 days  ▇▃█▄▁▁▁▇▅▁▁▂▁▃▂▁▂▁▁▁▁▃▄▁▂▁▁▂▂▂</pre>
+last 30 days  ▃█▄▁▁▁▇▅▁▁▂▁▃▂▁▂▁▁▁▁▃▄▁▂▁▁▂▂▂▂</pre>
 </div>
 
 <div align="center">
@@ -80,7 +80,7 @@ JavaScript  ▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    6.2%
 Shell       ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    0.5%</pre>
 </div>
 
-<p align="center"><sub>updated 2026-09-10 03:04 KST</sub></p>
+<p align="center"><sub>updated 2026-09-11 02:56 KST</sub></p>
 <!-- STATS:END -->
 
 <h3 align="center">⏳ Coding time 💻</h3>
@@ -88,15 +88,15 @@ Shell       ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    0.5%</pre>
 <!-- CODING_TIME:START -->
 <div align="center">
 <pre>
-Markdown  ▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱   46.7%  1 hr 38 mins
-Python    ▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱   32.1%  1 hr 7 mins 
-Other     ▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱   14.2%  29 mins     
-SQL       ▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    5.0%  10 mins     
+Markdown  ▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱   47.7%  1 hr 28 mins
+Python    ▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱   34.8%  1 hr 4 mins 
+Other     ▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱   16.1%  29 mins     
+YAML      ▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    1.3%  2 mins      
 --------------------------------------------------
-Total     3h 01m  (last 7 days)                   </pre>
+Total     2h 36m  (last 7 days)                   </pre>
 </div>
 
-<p align="center"><sub>updated 2026-09-10 03:04 KST · via WakaTime</sub></p>
+<p align="center"><sub>updated 2026-09-11 02:56 KST · via WakaTime</sub></p>
 <!-- CODING_TIME:END -->
 
 <sub>이 페이지의 수치는 GitHub Actions 가 매일 자동으로 갱신합니다.</sub>
