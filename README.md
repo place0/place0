@@ -69,7 +69,7 @@
 <!-- STATS:START -->
 <div align="center">
 <pre>
-last 30 days  ▁▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▂▇▇▁▁█▁▁▁▁▁▁▄▄</pre>
+last 30 days  ▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▂▇▇▁▁█▁▁▁▁▁▁▄▄▄</pre>
 </div>
 
 <div align="center">
@@ -81,7 +81,7 @@ Raku        ▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    4.3%
 JavaScript  ▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱    4.3%</pre>
 </div>
 
-<p align="center"><sub>updated 2026-11-25 08:40 KST</sub></p>
+<p align="center"><sub>updated 2026-11-26 08:23 KST</sub></p>
 <!-- STATS:END -->
 
 <h3 align="center">⏳ Coding time 💻</h3>
